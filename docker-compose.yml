@@ -10,7 +10,6 @@ services:
     depends_on:
     - mysql
     - php-fpm
-    - npm
   shell:
     build: ./shell
     container_name: shell
@@ -19,7 +18,7 @@ services:
     depends_on:
     - mysql
     - php-fpm
-    - npm
+    - vue
   php-fpm:
     build: ./php-fpm
     volumes:
@@ -37,12 +36,14 @@ services:
         - mysql
     depends_on:
     - mysql
-  npm:
-   build: ./npm
+  vue:
+   build: ./vue
    ports:
     - 3000:3000
    volumes:
-    - ../crm_frontend_vue:/data/crm_docker/httpdocs_node
+    - ../crm_frontend_vue:/data/crm_docker/httpdocs_vue
+   depends_on:
+   - nginx
   mysql:
     image: 'percona:5.6'
     volumes:
