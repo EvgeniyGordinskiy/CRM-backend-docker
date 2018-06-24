@@ -17,6 +17,7 @@ services:
     - ../crm_backend_laravel:/data/crm_docker/httpdocs
     depends_on:
     - mysql
+    - redis
     - php-fpm
     - vue
   php-fpm:
@@ -36,6 +37,10 @@ services:
         - mysql
     depends_on:
     - mysql
+  redis:
+    image: 'redis:alpine'
+    ports:
+     - 6379:6379
   vue:
    build: ./vue
    ports:
